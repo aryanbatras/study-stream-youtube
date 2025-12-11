@@ -19,7 +19,7 @@ export default function Navigation() {
         >
           <A href="/">
               <Text animate={true} className="font-bold opacity-50">
-                CodeCompanion
+                Study Companion
               </Text>
           </A>
         </Motion.div>
@@ -60,7 +60,7 @@ const MobileMenu = ({ onClose }) => {
                 <div class="p-4">
                     <div class="flex justify-between items-center mb-8">
                         <Text animate={false} responsive="fluid" size="base" class="text-white">
-                            CodeCompanion
+                            Study Companion
                         </Text>
                         <button
                             onClick={onClose}

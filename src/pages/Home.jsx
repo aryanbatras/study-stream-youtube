@@ -40,7 +40,7 @@ const Home = () => {
                 class="mb-8"
             >
                 <Text animate={true} className="px-8 text-sm font-serif italic underline-offset-1 opacity-80 text-center">
-                    <ShinyText> Join a community of learners coding together in real-time </ShinyText>
+                    <ShinyText> Join a community of learners studying together in real-time </ShinyText>
                 </Text>
             </Motion.div>
 

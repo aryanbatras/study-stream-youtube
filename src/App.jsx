@@ -1,4 +1,4 @@
-import {Suspense, lazy, createSignal, createEffect, Show, onMount} from "solid-js";
+import {Suspense, lazy, createSignal, Show, onMount} from "solid-js";
 import { Route, Router, useLocation } from "@solidjs/router";
 
 import Footer from "./layout/Footer.jsx";
@@ -52,7 +52,7 @@ const AppContent = (props) => {
 export default function App() {
     return (
         <Router root={AppContent}>
-            <Route path="/" component={Home} />
+            <Route path="*" component={Home} />
             <Route path="/about" component={About} />
             <Route path="/contact" component={Contact} />
             <Route path="/privacy" component={Privacy} />
