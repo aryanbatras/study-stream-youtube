@@ -1,17 +1,80 @@
-import {styled} from 'solid-styled-components';
+import { styled } from 'solid-styled-components';
+import { createSignal, createEffect } from 'solid-js';
 
-const YoutubeButton = () => {
+const YoutubeButton = ({ settings, onSettingsOpen }) => {
+    const [showDialog, setShowDialog] = createSignal(false);
+    
+    const handleGoLive = () => {
+        if (!settings().youtubeUrl) {
+            setShowDialog(true);
+            return;
+        }
+        
+        // Extract channel name from URL
+        const url = settings().youtubeUrl;
+        let channelId = '';
+        
+        // Handle different URL formats
+        if (url.includes('youtube.com/channel/')) {
+            channelId = url.split('youtube.com/channel/')[1].split('/')[0].split('?')[0];
+        } else if (url.includes('youtube.com/')) {
+            const path = url.split('youtube.com/')[1];
+            if (path.startsWith('@')) {
+                channelId = path.split('/')[0].substring(1);
+            } else if (path.startsWith('c/') || path.startsWith('user/')) {
+                channelId = path.split('/')[1];
+            }
+        }
+        
+        if (channelId) {
+            window.open(`https://studio.youtube.com/channel/${channelId}/livestreaming`, '_blank');
+        } else {
+            // Fallback to YouTube Studio if we can't parse the URL
+            window.open('https://studio.youtube.com', '_blank');
+        }
+    };
+
     return (
-        <StyledWrapper>
-            <button className="button-with-icon">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" id="Play" className="icon">
-                    <path d="M12 39c-.549 0-1.095-.15-1.578-.447A3.008 3.008 0 0 1 9 36V12c0-1.041.54-2.007 1.422-2.553a3.014 3.014 0 0 1 2.919-.132l24 12a3.003 3.003 0 0 1 0 5.37l-24 12c-.42.21-.885.315-1.341.315z" fill="#ffffff" className="color000000 svgShape" />
-                </svg>
-                <span className="text">Go Live</span>
-            </button>
-        </StyledWrapper>
+        <>
+            <StyledWrapper>
+                <button className="button-with-icon" onClick={handleGoLive}>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" id="Play" className="icon">
+                        <path d="M12 39c-.549 0-1.095-.15-1.578-.447A3.008 3.008 0 0 1 9 36V12c0-1.041.54-2.007 1.422-2.553a3.014 3.014 0 0 1 2.919-.132l24 12a3.003 3.003 0 0 1 0 5.37l-24 12c-.42.21-.885.315-1.341.315z" fill="#ffffff" className="color000000 svgShape" />
+                    </svg>
+                    <span className="text">Go Live</span>
+                </button>
+            </StyledWrapper>
+
+            {showDialog() && (
+                <div class=" inset-0 bg-black/50 flex items-center justify-center absolute z-50">
+                    <div class="bg-gray-800 p-6 rounded-lg max-w-md w-full mx-4">
+                        <h3 class="text-xl font-medium text-white mb-4">YouTube Channel Required</h3>
+                        <p class="text-gray-300 mb-6">
+                            Please add your YouTube channel URL in settings to go live.
+                        </p>
+                        <div class="flex justify-end space-x-3">
+                            <button
+                                onClick={() => setShowDialog(false)}
+                                class="px-4 py-2 text-gray-300 hover:text-white"
+                            >
+                                Cancel
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setShowDialog(false);
+                                    onSettingsOpen();
+                                }}
+                                class="px-4 py-2 bg-red-600 text-white rounded hover:bg-red-700"
+                            >
+                                Go to Settings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
     );
-}
+};
 
 const StyledWrapper = styled.div`
   .button-with-icon {

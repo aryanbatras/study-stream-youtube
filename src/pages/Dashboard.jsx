@@ -75,7 +75,10 @@ export default function Dashboard() {
                         )}
                     </div>
                     <div class="flex gap-4 items-center">
-                        <YoutubeButton />
+                        <YoutubeButton 
+                            settings={settings} 
+                            onSettingsOpen={() => setSettingsOpen(!settingsOpen())}
+                        />
                         {pinnedVideosCount() > 0 && (
                             <button 
                                 onClick={() => setIsFocusMode(true)}
@@ -84,9 +87,9 @@ export default function Dashboard() {
                                 <span>Focus Mode</span>
                             </button>
                         )}
-                        <button 
+                        <button
                             onClick={() => setSettingsOpen(!settingsOpen())}
-                            class="btn btn-ghost flex items-center gap-2 z-10"
+                            class="btn flex items-center gap-2 z-10"
                             aria-label="Settings"
                         >
                             <FaSolidGear class="w-5 h-5" />
