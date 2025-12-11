@@ -1,4 +1,4 @@
-import{c as o,t as e,a as n}from"./index-DWoBVNnF.js";var t=e("<div class=login-box><form><div class=user-box><input type=text name required><label>Username</label></div><div class=user-box><input type=password name required><label>Password</label></div><center><a href=#>SEND<span>");const i=()=>o(r,{get children(){return t()}}),r=n.div`
+import{c as o,t as e,a as n}from"./index-MKBqMPue.js";var t=e("<div class=login-box><form><div class=user-box><input type=text name required><label>Username</label></div><div class=user-box><input type=password name required><label>Password</label></div><center><a href=#>SEND<span>");const i=()=>o(r,{get children(){return t()}}),r=n.div`
   position: relative;
   min-height: 100vh;
   width: 100%;
