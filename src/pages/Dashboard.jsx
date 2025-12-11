@@ -10,20 +10,22 @@ import CubeBox from "../components/external/CubeBox.jsx";
 import {useThemeStore} from "../stores/themeStore.js";
 import ThemeSwitch from "../components/external/ThemeSwitch.jsx";
 
-const DEFAULT_SETTINGS = {
-  theme: 'system',
-  fontSize: 'medium',
-  animations: true,
-  notifications: true
-};
-
 export default function Dashboard() {
+
+// In your Dashboard component
+const handleVideoLinkSubmit = (videoId) => {
+    setLiveVideo({
+        id: videoId,
+        title: 'Live Stream',
+        thumbnail: `https://img.youtube.com/vi/${videoId}/mqdefault.jpg`
+    });
+};
 
     const [settings, setSettings] = createSignal({
         theme: localStorage.getItem('theme') || '',
         cardsPerPage: localStorage.getItem('cardsPerPage') || '',
         youtubeUrl: localStorage.getItem('youtubeUrl') || '',
-        showInDashboard: localStorage.getItem('showInDashboard') === 'true' || false
+        showInDashboard: localStorage.getItem('showInDashboard') ? localStorage.getItem('showInDashboard') === 'true' : true
     });
     const saveSettings = (key, value) => {
         localStorage.setItem(key, value);
@@ -39,13 +41,81 @@ export default function Dashboard() {
     const [isFocusMode, setIsFocusMode] = createSignal(false);
     const [settingsOpen, setSettingsOpen] = createSignal(false);
 
-    onMount(() => loadLiveVideos(12));
+    // Add state for the live video
+    const [liveVideo, setLiveVideo] = createSignal(null);
+    const [isLoadingLive, setIsLoadingLive] = createSignal(false);
 
-    const updatePinnedState = (videoId, isPinned) => {
-        const newPinnedVideos = {
-            ...pinnedVideos(),
-            [videoId]: isPinned
-        };
+    // Add this effect to check for live video when the channel ID changes
+    createEffect(async () => {
+        const channelId = settings().youtubeUrl;
+        if (!channelId) return;
+
+        setIsLoadingLive(true);
+        try {
+            const response = await fetch(`https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`);
+            if (!response.ok) {
+                setLiveVideo(null);
+                return;
+            }
+
+            const text = await response.text();
+            console.log('RSS Feed Response:', text); // Debug log
+            
+            const parser = new DOMParser();
+            const xmlDoc = parser.parseFromString(text, "text/xml");
+            
+            // Debug: Log all entries to see what's in the feed
+            const allEntries = Array.from(xmlDoc.getElementsByTagName('entry'));
+            console.log('All entries:', allEntries);
+            
+            const liveEntry = allEntries.find(entry => {
+                const liveBroadcast = entry.getElementsByTagName('yt:liveBroadcastContent')[0];
+                console.log('Entry:', entry);
+                console.log('Live broadcast element:', liveBroadcast);
+                console.log('Live broadcast content:', liveBroadcast?.textContent);
+                return liveBroadcast?.textContent === 'live';
+            });
+            
+            console.log('Found live entry:', liveEntry); // Debug log
+
+            if (liveEntry) {
+                console.log('Processing live entry:', liveEntry);
+                const videoId = liveEntry.getElementsByTagName('yt:videoId')[0]?.textContent;
+                const title = liveEntry.getElementsByTagName('title')[0]?.textContent;
+                const thumbnail = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : '';
+                
+                console.log('Extracted video data:', { videoId, title, thumbnail });
+
+                setLiveVideo({
+                    id: videoId,
+                    title,
+                    thumbnail
+                });
+            } else {
+                setLiveVideo(null);
+            }
+        } catch (error) {
+            console.error('Error checking live status:', error);
+            setLiveVideo(null);
+        } finally {
+            setIsLoadingLive(false);
+        }
+    });
+
+    onMount(() => loadLiveVideos(25));
+
+    const updatePinnedState = (videoId, isPinned, isLive = false) => {
+        const newPinnedVideos = { ...pinnedVideos() };
+
+        // For live videos, use a special prefix to distinguish them
+        const pinKey = isLive ? `live_${videoId}` : videoId;
+
+        if (isPinned) {
+            newPinnedVideos[pinKey] = true;
+        } else {
+            delete newPinnedVideos[pinKey];
+        }
+
         setPinnedVideos(newPinnedVideos);
 
         if (Object.values(newPinnedVideos).filter(Boolean).length === 0) {
@@ -57,9 +127,10 @@ export default function Dashboard() {
     const totalPages = createMemo(() => Math.ceil((videos().data?.length || 0) / cardsPerPage()));
     const goToPage = (page) => { if (page >= 1 && page <= totalPages()) setCurrentPage(page) };
 
-    const pinnedVideosCount = createMemo(() =>
-        Object.values(pinnedVideos()).filter(Boolean).length
-    );
+    const pinnedVideosCount = createMemo(() => {
+        return Object.keys(pinnedVideos()).filter(key => pinnedVideos()[key]).length;
+    });
+
     return (
         <Section className="min-h-screen flex flex-col justify-around items-center">
 
@@ -75,12 +146,13 @@ export default function Dashboard() {
                         )}
                     </div>
                     <div class="flex gap-4 items-center">
-                        <YoutubeButton 
-                            settings={settings} 
+                        <YoutubeButton
+                            settings={settings}
                             onSettingsOpen={() => setSettingsOpen(!settingsOpen())}
+                            onVideoLinkSubmit={handleVideoLinkSubmit}
                         />
                         {pinnedVideosCount() > 0 && (
-                            <button 
+                            <button
                                 onClick={() => setIsFocusMode(true)}
                                 class="btn btn-primary flex items-center gap-2"
                             >
@@ -107,18 +179,65 @@ export default function Dashboard() {
                             </h2>
                         </div>
                         <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 px-4">
+                            {/* Regular pinned videos */}
                             {videos().data
-                                ?.filter(video => pinnedVideos()[video])
-                                .map(video => (
+                                ?.filter(videoId => pinnedVideos()[videoId])
+                                .map(videoId => (
                                     <Card
-                                        id={video}
+                                        key={`regular_${videoId}`}
+                                        id={videoId}
                                         isPinned={true}
-                                        onPinChange={(pinned) => updatePinnedState(video, pinned)}
+                                        onPinChange={(pinned) => updatePinnedState(videoId, pinned)}
                                         className="aspect-video col-span-1 sm:col-span-1"
                                     />
                                 ))}
+
+                            {/* Live pinned video if any */}
+                            {liveVideo() && pinnedVideos()[`live_${liveVideo().id}`] && (
+                                <Card
+                                    key={`live_${liveVideo().id}`}
+                                    id={liveVideo().id}
+                                    title={liveVideo().title}
+                                    thumbnail={liveVideo().thumbnail}
+                                    isLive={true}
+                                    isPinned={true}
+                                    onPinChange={(pinned) => updatePinnedState(liveVideo().id, pinned, true)}
+                                    className="aspect-video col-span-1 sm:col-span-1"
+                                />
+                            )}
+
                         </div>
                     </div>
+                )}
+
+                {/* Add this section to show the live video */}
+                {settings().showInDashboard && settings().youtubeUrl && (
+                    <Section className="w-full p-4 pl-16 pr-16">
+                        <Text animate={true} className="px-8 text-2xl md:text-4xl lg:text-6xl font-serif font-stretch-50% opacity-80">
+                            <ShinyText>Your Live Stream</ShinyText>
+                        </Text>
+                        {isLoadingLive() ? (
+                            <div class="flex justify-center items-center h-64 bg-black">
+                                <span class="loading loading-spinner loading-lg"></span>
+                            </div>
+                        ) : liveVideo() ? (
+                            <div class="mt-4">
+                                <Card
+                                    id={liveVideo().id}
+                                    title={liveVideo().title}
+                                    thumbnail={liveVideo().thumbnail}
+                                    isLive={true}
+                                    className="w-full aspect-video"
+                                    isPinned={!!pinnedVideos()[`live_${liveVideo().id}`]}
+                                    onPinChange={(pinned) => updatePinnedState(liveVideo().id, pinned, true)}
+                                />
+                            </div>
+                        ) : (
+                            <div class="mt-4 p-4 rounded-lg bg-gray-800 border border-gray-700">
+                                <span class="text-gray-300">You're not currently live on YouTube.</span>
+                            </div>
+                        )}
+                    </Section>
                 )}
             </Section>
 
@@ -200,45 +319,60 @@ export default function Dashboard() {
                         {/*</button>*/}
                     </div>
                     <div class="w-full h-full">
+                        // In the focus mode section (around line 300-350), update the pinned videos list to include both types:
                         {(() => {
-                            const pinnedVideosList = videos().data?.filter(video => pinnedVideos()[video]) || [];
+                            const pinnedVideosList = [
+                                // Regular pinned videos
+                                ...(videos().data?.filter(videoId => pinnedVideos()[videoId]) || []).map(videoId => ({
+                                    id: videoId,
+                                    isLive: false
+                                })),
+                                // Live pinned video if any
+                                ...(liveVideo() && pinnedVideos()[`live_${liveVideo().id}`] ? [{
+                                    id: liveVideo().id,
+                                    title: liveVideo().title,
+                                    thumbnail: liveVideo().thumbnail,
+                                    isLive: true
+                                }] : [])
+                            ];
+
                             const count = pinnedVideosList.length;
+                            if (count === 0) return null;
 
                             // Define grid layouts based on number of videos
                             const getGridLayout = () => {
-                                if (count <= 1) return 'grid-cols-1 grid-rows-1';
-                                if (count === 2) return 'grid-cols-2 grid-rows-1';
-                                if (count === 3) return 'grid-cols-2 grid-rows-2';
-                                if (count === 4) return 'grid-cols-2 grid-rows-2';
-                                if (count === 5 || count === 6) return 'grid-cols-3 grid-rows-2';
-                                return 'grid-cols-4 grid-rows-2'; // 7 or 8 videos
-                            };
-
-                            // Adjust the size of the first row for 3, 5, or 6 videos
-                            const getRowSpan = (index) => {
-                                if (count === 3 && index === 0) return 'row-span-2';
-                                if ((count === 5 || count === 6) && index < 3) return 'row-span-2';
-                                return '';
-                            };
-
-                            // Adjust the aspect ratio based on layout
-                            const getAspectRatio = () => {
-                                if (count === 1) return 'aspect-auto';
-                                if (count === 2 || count === 4) return 'aspect-video';
-                                return 'aspect-video';
+                                switch (count) {
+                                    case 1: return 'grid-cols-1 grid-rows-1';
+                                    case 2: return 'grid-cols-2 grid-rows-1';
+                                    case 3: return 'grid-cols-2 grid-rows-2';
+                                    case 4: return 'grid-cols-2 grid-rows-2';
+                                    default: return 'grid-cols-2 grid-rows-2';
+                                }
                             };
 
                             return (
-                                <div class={`w-full h-full grid ${getGridLayout()} gap-1 p-1`}>
+                                <div class={`w-full h-full grid ${getGridLayout()} gap-4 p-4`}>
                                     {pinnedVideosList.map((video, index) => (
-                                        <div class={`relative ${getRowSpan(index)}`}>
+                                        <div key={`focus-${video.isLive ? 'live' : 'regular'}-${video.id}`}
+                                             class={`relative ${count === 3 && index === 0 ? 'row-span-2' : ''}`}>
                                             <Card
-                                                id={video}
+                                                id={video.id}
+                                                title={video.title}
+                                                thumbnail={video.thumbnail}
+                                                isLive={video.isLive}
                                                 isPinned={true}
-                                                hideUI={true}
-                                                onPinChange={(pinned) => updatePinnedState(video, pinned)}
-                                                className={`w-full h-full ${getAspectRatio()}`}
+                                                onPinChange={(pinned) => updatePinnedState(
+                                                    video.id,
+                                                    pinned,
+                                                    video.isLive
+                                                )}
+                                                className="w-full h-full"
                                             />
+                                            {count > 4 && index >= 4 && (
+                                                <div class="absolute inset-0 bg-black/50 flex items-center justify-center">
+                                                    <span class="text-white text-2xl">+{count - 4} more</span>
+                                                </div>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
