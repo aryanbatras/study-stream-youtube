@@ -1,4 +1,4 @@
-import{t as s,s as c,i as l,c as e,a as i,m as p,M as o,T as m,A as f,S as h}from"./index-BjwWQhhi.js";import{S as b}from"./ShinyText-DBZhUhI8.js";import{B as x}from"./Button-wQahw6p6.js";var y=s("<span class=word>"),u=s("<div class=card><div class=loader><div class=words>");const g=a=>{const d=a.children.split(" ").map((r,n)=>(()=>{var t=y();return c(t,"key",n),l(t,r),t})());return e(w,{get children(){var r=u(),n=r.firstChild,t=n.firstChild;return l(t,d),r}})},w=i("div")`
+import{t as s,s as c,i as l,c as e,a as i,m as p,M as o,T as m,A as f,S as h}from"./index-D00YHoyE.js";import{S as b}from"./ShinyText-DoPgOsOm.js";import{B as x}from"./Button-KINeap1Z.js";var y=s("<span class=word>"),u=s("<div class=card><div class=loader><div class=words>");const g=a=>{const d=a.children.split(" ").map((r,n)=>(()=>{var t=y();return c(t,"key",n),l(t,r),t})());return e(w,{get children(){var r=u(),n=r.firstChild,t=n.firstChild;return l(t,d),r}})},w=i("div")`
   .card {
     /* color used to softly clip top and bottom of the .words container */
     --bg-color: #111;
@@ -137,7 +137,7 @@ import{t as s,s as c,i as l,c as e,a as i,m as p,M as o,T as m,A as f,S as h}fro
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-color: transparent;
-    animation: loader-rotate 2s linear infinite;
+    animation: loader-rotate 4s linear infinite;
     z-index: 0;
   }
 
