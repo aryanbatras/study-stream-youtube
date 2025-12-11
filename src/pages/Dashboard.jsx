@@ -18,7 +18,19 @@ const DEFAULT_SETTINGS = {
 };
 
 export default function Dashboard() {
-    const [cardsPerPage, setCardsPerPage] = createSignal(4);
+
+    const [settings, setSettings] = createSignal({
+        theme: localStorage.getItem('theme') || '',
+        cardsPerPage: localStorage.getItem('cardsPerPage') || '',
+        youtubeUrl: localStorage.getItem('youtubeUrl') || '',
+        showInDashboard: localStorage.getItem('showInDashboard') === 'true' || false
+    });
+    const saveSettings = (key, value) => {
+        localStorage.setItem(key, value);
+        setSettings(prev => ({ ...prev, [key]: value }));
+    };
+
+    const [cardsPerPage, setCardsPerPage] = createSignal(settings().cardsPerPage || 4);
     const { videos, loadLiveVideos } = useYoutubeApi();
     const { isDark, toggleTheme } = useThemeStore();
 
@@ -62,7 +74,8 @@ export default function Dashboard() {
                             </div>
                         )}
                     </div>
-                    <div class="flex gap-4">
+                    <div class="flex gap-4 items-center">
+                        <YoutubeButton />
                         {pinnedVideosCount() > 0 && (
                             <button 
                                 onClick={() => setIsFocusMode(true)}
@@ -241,7 +254,7 @@ export default function Dashboard() {
                             <div class="p-8">
                                 <div class="flex justify-between items-center mb-8">
                                     <Text className="text-3xl font-bold">Settings</Text>
-                                    <button 
+                                    <button
                                         onClick={() => setSettingsOpen(false)}
                                         class="p-2 rounded-full hover:bg-opacity-20 transition-colors"
                                         aria-label="Close settings"
@@ -251,11 +264,11 @@ export default function Dashboard() {
                                         </svg>
                                     </button>
                                 </div>
-                                
+
                                 <div class="space-y-8">
                                     <div class="flex flex-row justify-between items-center gap-4">
                                         <Text as="label" className="block text-md font-medium m-4">Theme</Text>
-                                        <ThemeSwitch/>
+                                        <ThemeSwitch saveSettings={saveSettings}/>
                                     </div>
                                 </div>
 
@@ -265,7 +278,7 @@ export default function Dashboard() {
                                         <Text as="label" className="block text-md font-medium m-4">Cards</Text>
                                         <input
                                             type="number"
-                                            value={Math.max(1, Math.min(12, cardsPerPage() || 4))}
+                                            value={settings().cardsPerPage || cardsPerPage()}
                                             onChange={(e) => {
                                                 const value = e.target.value;
                                                 const parsedValue = parseInt(value);
@@ -277,12 +290,44 @@ export default function Dashboard() {
                                                     console.error(`Value "${value}" is greater than 12.`);
                                                     return;
                                                 }
+                                                saveSettings('cardsPerPage', parsedValue);
                                                 setCardsPerPage(parsedValue);
                                             }}
                                             class=" w-12 px-2 py-1 rounded-lg bg-black/50 border focus:border-white/30 focus:ring-2 focus:ring-white/50 transition-colors duration-200 text-white placeholder-gray-400 "
                                             placeholder="4"
                                         >
                                         </input>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-8 mt-8">
+                                    <Text className="text-xl font-semibold mb-4">Go Live</Text>
+                                    <div class="space-y-4">
+                                        <div class="flex flex-col gap-2">
+                                            <Text as="label" className="block text-md font-medium">YouTube Channel URL</Text>
+                                            <div class="flex flex-col lg:flex-row gap-2">
+                                                <input
+                                                    type="url"
+                                                    value={settings().youtubeUrl}
+                                                    onInput={(e) => saveSettings('youtubeUrl', e.target.value)}
+                                                    placeholder="https://www.youtube.com/@channelname"
+                                                    class="flex-1 px-4 py-2 rounded-lg bg-black/50 border border-gray-600 focus:border-white/30 focus:ring-2 focus:ring-white/50 transition-colors duration-200 text-white placeholder-gray-400"
+                                                />
+                                                <button class="btn btn-primary whitespace-nowrap">Save</button>
+                                            </div>
+                                            <div class="flex items-center mt-4">
+                                                <input
+                                                    id="showInDashboard"
+                                                    type="checkbox"
+                                                    checked={settings().showInDashboard}
+                                                    onInput={(e) => saveSettings('showInDashboard', e.target.checked)}
+                                                    class="w-4 h-4 rounded border-gray-600 bg-black/50 focus:ring-2 focus:ring-white/50"
+                                                />
+                                                <label for="showInDashboard" class="ml-2 text-sm text-gray-300">
+                                                    Show my live stream in dashboard
+                                                </label>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 

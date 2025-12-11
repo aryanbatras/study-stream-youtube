@@ -11,7 +11,13 @@ const ThemeSwitch = (props) => {
                         id="check-5"
                         type="checkbox"
                         checked={!isDark()}
-                        onChange={toggleTheme}
+                        onChange={() => {
+                            const newTheme = !isDark();
+                            toggleTheme();
+                            if (props.saveSettings) {
+                                props.saveSettings('theme', newTheme);
+                            }
+                        }}
                     />
                     <label for="check-5" />
                 </div>

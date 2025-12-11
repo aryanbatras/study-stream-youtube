@@ -19,26 +19,26 @@ const StyledWrapper = styled.div`
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid #d32f2f;
+    border: 0px solid #d32f2f;
     font-family: "Istok Web", sans-serif;
-    letter-spacing: 1px;
+    letter-spacing: 2px;
     padding: 0 12px;
     text-align: center;
-    width: 112px;
-    height: 30px;
-    font-size: 10px;
+    width: 116px;
+    height: 40px;
+    font-size: 12px;
     text-transform: uppercase;
     font-weight: normal;
-    border-radius: 3px;
+    border-radius: 6px;
     outline: none;
     user-select: none;
     cursor: pointer;
     transform: translateY(0px);
     position: relative;
     box-shadow:
-      inset 0 30px 30px -15px rgba(255, 255, 255, 0.1),
-      inset 0 0 0 1px rgba(255, 255, 255, 0.3),
-      inset 0 1px 20px rgba(0, 0, 0, 0),
+      inset 0 30px 30px -15px rgba(255, 255, 255, 0.2),
+      inset 0 0 0 1px rgba(255, 255, 255, 0),
+      inset 0 1px 20px rgba(0, 0, 0, 0.1),
       0 3px 0 #d32f2f,
       0 3px 2px rgba(0, 0, 0, 0.2),
       0 5px 10px rgba(0, 0, 0, 0.1),
@@ -46,7 +46,7 @@ const StyledWrapper = styled.div`
     background: #e53935;
     color: white;
     text-shadow: 0 1px 0 rgba(0, 0, 0, 0.3);
-    transition: 150ms all ease-in-out;
+    transition: 200ms all ease-in-out;
   }
 
   .button-with-icon .icon {
