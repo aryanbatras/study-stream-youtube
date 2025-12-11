@@ -1,0 +1,14 @@
+@import "tailwindcss";
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark;
+}
+
+html, body, #root, #app {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a; /* Match your app's background */
+}
+
+@custom-variant dark (&:is(.dark *));
+
