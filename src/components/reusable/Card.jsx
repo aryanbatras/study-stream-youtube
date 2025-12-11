@@ -1,7 +1,12 @@
-import { createSignal, Show } from 'solid-js';
+import { createSignal, Show, createEffect } from 'solid-js';
 import { Motion } from 'solid-motionone';
 import YouTubeAutoPlayer from './YouTubeAutoPlayer';
 import { FaSolidThumbtack } from 'solid-icons/fa';
+
+// Helper to detect mobile devices
+const isMobile = () => {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+};
 
 const Card = (props) => {
     const { id, className = '', isLive = false, isPinned = false, onPinChange } = props;
@@ -12,12 +17,19 @@ const Card = (props) => {
         onPinChange?.(!isPinned);
     };
     
+    const handleCardClick = () => {
+        if (isMobile()) {
+            onPinChange?.(!isPinned);
+        }
+    };
+    
     return (
         <Motion.div
-            class={`relative aspect-video bg-black rounded-lg overflow-hidden ${className}`}
+            class={`relative aspect-video bg-black rounded-lg overflow-hidden ${className} ${isMobile() ? 'cursor-pointer' : ''}`}
             data-video-id={id}
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
+            onClick={handleCardClick}
         >
             <Show when={id} fallback={
                 <div class="w-full h-full flex items-center justify-center bg-black">
@@ -52,27 +64,29 @@ const Card = (props) => {
                     LIVE
                 </Motion.div>
                 
-                {/* Pin Button - Only shows on hover */}
-                <Motion.div 
-                    class="absolute top-1 right-1 flex gap-1 pointer-events-auto"
-                    initial={{ opacity: 0, y: -5 }}
-                    animate={{
-                        opacity: isHovered() ? 1 : 0,
-                        y: isHovered() ? 0 : -5
-                    }}
-                    transition={{ duration: 0.2 }}
-                >
-                    <button
-                        onClick={handlePinClick}
-                        class={`p-1.5 rounded-full ${isPinned ? 'bg-primary/90' : 'bg-black/60'} text-white hover:bg-primary transition-all cursor-pointer shadow-md`}
-                        title={isPinned ? 'Unpin' : 'Pin'}
+                {/* Pin Button - Only shows on hover and not on mobile */}
+                <Show when={!isMobile()}>
+                    <Motion.div 
+                        class="absolute top-1 right-1 flex gap-1 pointer-events-auto"
+                        initial={{ opacity: 0, y: -5 }}
+                        animate={{
+                            opacity: isHovered() ? 1 : 0,
+                            y: isHovered() ? 0 : -5
+                        }}
+                        transition={{ duration: 0.2 }}
                     >
-                        <FaSolidThumbtack 
-                            class="w-3 h-3 transition-transform" 
-                            classList={{ 'rotate-45': isPinned }}
-                        />
-                    </button>
-                </Motion.div>
+                        <button
+                            onClick={handlePinClick}
+                            class={`p-3 rounded-full ${isPinned ? 'bg-primary/90' : 'bg-black/60'} text-white hover:bg-primary transition-all cursor-pointer shadow-md`}
+                            title={isPinned ? 'Unpin' : 'Pin'}
+                        >
+                            <FaSolidThumbtack 
+                                class="w-6 h-6 transition-transform" 
+                                classList={{ 'rotate-45': isPinned }}
+                            />
+                        </button>
+                    </Motion.div>
+                </Show>
             </div>
         </Motion.div>
     );

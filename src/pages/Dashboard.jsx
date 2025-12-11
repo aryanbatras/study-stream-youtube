@@ -6,6 +6,7 @@ import { useYoutubeApi } from '../hooks/useYoutubeApi.js';
 import { FaSolidThumbtack } from 'solid-icons/fa';
 import ShinyText from "../components/external/ShinyText.jsx";
 import Text from "../components/reusable/Text.jsx";
+import CubeBox from "../components/external/CubeBox.jsx";
 
 export default function Dashboard() {
     const CARDS_PER_PAGE = 4;
@@ -23,8 +24,7 @@ export default function Dashboard() {
             [videoId]: isPinned
         };
         setPinnedVideos(newPinnedVideos);
-        
-        // Auto-exit focus mode if no pinned videos left
+
         if (Object.values(newPinnedVideos).filter(Boolean).length === 0) {
             setIsFocusMode(false);
         }
@@ -67,7 +67,7 @@ export default function Dashboard() {
                                 <Text animte={true}>Pinned Streams</Text>
                             </h2>
                         </div>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 px-4">
+                        <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 px-4">
                             {videos().data
                                 ?.filter(video => pinnedVideos()[video])
                                 .map(video => (
@@ -97,7 +97,7 @@ export default function Dashboard() {
                     </div>
                 ) : (
                     <>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 p-4">
+                        <div class="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-2 gap-6 p-4">
                             {paginatedVideos().map((video) => (
                                 <Card
                                     id={video}
@@ -138,9 +138,13 @@ export default function Dashboard() {
                 )}
             </Section>
 
-            <Section className="flex flex-row justify-around gap-4 mt-8 w-full max-w-4xl mb-8">
-                <YoutubeButton />
-            </Section>
+            {/*<Section className="flex flex-row justify-around gap-4 mt-8 w-full max-w-4xl mb-8">*/}
+            {/*    <YoutubeButton />*/}
+            {/*</Section>*/}
+
+            {/*<Section className="flex flex-row justify-around gap-4 mt-32 w-full max-w-4xl mb-32">*/}
+            {/*    <CubeBox />*/}
+            {/*</Section>*/}
 
             <Show when={isFocusMode()}>
                 <div class="fixed inset-0 z-50 bg-black flex">

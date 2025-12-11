@@ -23,8 +23,8 @@ const Home = () => {
                 <TextRotate>
                     .
                     Welcome
-                    CodeCompanions
-                    Let'sCode
+                    Companions
+                    Let'sStudy
                     Together
 
 
