@@ -44,7 +44,7 @@ const StyledWrapper = styled.div`
     aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-color: transparent;
-    animation: loader-rotate 2s linear infinite;
+    animation: loader-rotate 4s linear infinite;
     z-index: 0;
   }
 
