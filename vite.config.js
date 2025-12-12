@@ -6,7 +6,7 @@ import Pages from 'vite-plugin-pages';
 
 export default defineConfig({
   plugins: [solidPlugin(), devtools(), Pages(), tailwindcss()],
-  base: './',
+  base: '/study-stream-youtube/',
   server: {
     port: 4000,
   },

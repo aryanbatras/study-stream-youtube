@@ -73,7 +73,7 @@ const AppContent = (props) => {
 
 export default function App() {
     return (
-        <Router source={typeof window !== 'undefined' ? window : undefined}>
+        <Router base="/study-stream-youtube">
             <Route path="/" component={AppContent}>
                 <Route path="/" component={Home} />
                 <Route path="/about" component={About} />
@@ -82,6 +82,7 @@ export default function App() {
                 <Route path="/terms" component={Terms} />
                 <Route path="/login" component={Login} />
                 <Route path="/dashboard" component={Dashboard} />
+                <Route path="*" component={Home} />
             </Route>
         </Router>
     );
