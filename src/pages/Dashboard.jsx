@@ -44,10 +44,10 @@ const handleVideoLinkSubmit = (videoId) => {
         localStorage.setItem(key, value);
         setSettings(prev => ({ ...prev, [key]: value }));
 
-        // Refresh the page if any component visibility setting is changed
-        if (['showTimer', 'showTaskManager'].includes(key)) {
-            setTimeout(() => window.location.href = '/dashboard', 500); // Navigate to /dashboard on refresh
-        }
+        // // Refresh the page if any component visibility setting is changed
+        // if (['showTimer', 'showTaskManager'].includes(key)) {
+        //     setTimeout(() => window.location.href = '/dashboard', 500); // Navigate to /dashboard on refresh
+        // }
     };
 
     const [cardsPerPage, setCardsPerPage] = createSignal(settings().cardsPerPage || 4);
