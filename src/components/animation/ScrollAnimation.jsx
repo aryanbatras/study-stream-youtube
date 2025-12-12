@@ -18,7 +18,7 @@ const ScrollAnimation = () => {
                     }}
                 >
                     <Text className="text-4xl opacity-80 font-bold tracking-tight font-display bg-clip-text text-transparent bg-gradient-to-r from-primary to-secondary">
-                        CodeCompanionCodeCompanionCodeCompanionCodeCompanionCodeCompanionCodeCompanion
+                        StudyCompanionStudyCompanionStudyCompanionStudyCompanionStudyCompanionStudyCompanion
                     </Text>
                 </Motion.div>
             </Motion.div>
