@@ -9,7 +9,6 @@ import Text from "../components/reusable/Text.jsx";
 import CubeBox from "../components/external/CubeBox.jsx";
 import {useThemeStore} from "../stores/themeStore.js";
 import ThemeSwitch from "../components/external/ThemeSwitch.jsx";
-import StudyRoom from "../components/StudyRoom/StudyRoom";
 
 // Load JitsiMeetExternalAPI globally
 if (typeof window !== 'undefined') {
@@ -39,7 +38,6 @@ const handleVideoLinkSubmit = (videoId) => {
         youtubeUrl: localStorage.getItem('youtubeUrl') || '',
         showInDashboard: localStorage.getItem('showInDashboard') ? localStorage.getItem('showInDashboard') === 'true' : true,
         showTimer: localStorage.getItem('showTimer') ? localStorage.getItem('showTimer') === 'true' : true,
-        // showStudyRoom: localStorage.getItem('showStudyRoom') ? localStorage.getItem('showStudyRoom') === 'true' : true,
         showTaskManager: localStorage.getItem('showTaskManager') ? localStorage.getItem('showTaskManager') === 'true' : true
     });
     const saveSettings = (key, value) => {
@@ -47,7 +45,7 @@ const handleVideoLinkSubmit = (videoId) => {
         setSettings(prev => ({ ...prev, [key]: value }));
 
         // Refresh the page if any component visibility setting is changed
-        if (['showTimer', 'showStudyRoom', 'showTaskManager'].includes(key)) {
+        if (['showTimer', 'showTaskManager'].includes(key)) {
             setTimeout(() => window.location.reload(), 300); // Small delay to allow state to update
         }
     };
@@ -463,18 +461,6 @@ const handleVideoLinkSubmit = (videoId) => {
                                                 class="toggle toggle-primary"
                                             />
                                         </div>
-                                        {/*<div class="flex items-center justify-between">*/}
-                                        {/*    <label for="showStudyRoom" class="text-sm text-gray-300">*/}
-                                        {/*        Show Study Room*/}
-                                        {/*    </label>*/}
-                                        {/*    <input*/}
-                                        {/*        id="showStudyRoom"*/}
-                                        {/*        type="checkbox"*/}
-                                        {/*        checked={settings().showStudyRoom}*/}
-                                        {/*        onInput={(e) => saveSettings('showStudyRoom', e.target.checked)}*/}
-                                        {/*        class="toggle toggle-primary"*/}
-                                        {/*    />*/}
-                                        {/*</div>*/}
                                         <div class="flex items-center justify-between">
                                             <label for="showTaskManager" class="text-sm text-gray-300">
                                                 Show Task Manager

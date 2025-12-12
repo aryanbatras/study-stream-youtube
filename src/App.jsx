@@ -17,7 +17,6 @@ const Dashboard = lazy(() => import("./pages/Dashboard.jsx"));
 
 const TaskManager = lazy(() => import("./components/TaskManager/TaskManager"));
 const Timer = lazy(() => import("./components/Timer/Timer"));
-const StudyRoom = lazy(() => import("./components/StudyRoom/StudyRoom"));
 
 const AppContent = (props) => {
     const [hasLoaded, setHasLoaded] = createSignal(false);
@@ -65,7 +64,6 @@ const AppContent = (props) => {
                 }}>
                 </ErrorBoundary>
                 {JSON.parse(localStorage.getItem('showTimer') || 'true') && <Timer/>}
-                {/*{JSON.parse(localStorage.getItem('showStudyRoom') || 'true') && <StudyRoom />}*/}
                 {JSON.parse(localStorage.getItem('showTaskManager') || 'true') && <TaskManager />}
                 <Footer />
             </div>
