@@ -395,7 +395,7 @@ const handleVideoLinkSubmit = (videoId) => {
             {/* Settings Panel */}
             <Show when={settingsOpen()}>
                 <div class="fixed inset-0 bg-black bg-opacity-75 z-50 flex items-center justify-center p-4" onClick={() => setSettingsOpen(false)}>
-                    <div class="w-full max-w-2xl p-32" onClick={e => e.stopPropagation()}>
+                    <div class="w-full max-w-2xl" onClick={e => e.stopPropagation()}>
 
                         <Section className="rounded-xl shadow-2xl overflow-hidden">
                             <div class="p-8">
