@@ -1,161 +1,135 @@
-import { styled } from 'solid-styled-components';
+import {styled} from 'solid-styled-components';
 
 const BubbleLoader = () => {
     return (
         <StyledWrapper>
-            <div className="container">
-                <div className="bubble">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                </div>
-                <div className="bubble">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                </div>
-                <div className="bubble">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                </div>
-                <div className="bubble">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                </div>
-                <div className="bubble">
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                    <span />
-                </div>
+            <div className="loader">
+                <span className="loader-text">Loading <br/> Companions</span>
+                <span className="load" />
             </div>
         </StyledWrapper>
     );
 }
 
 const StyledWrapper = styled.div`
-  .bubble {
+  .loader {
+    width: 160px;
+    height: 100px;
+    position: relative;
+  }
+
+  .loader-text {
     position: absolute;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    box-shadow: inset 0 0 25px rgba (255, 255, 255, 0.25);
-    animation: animate_4010 8s ease-in-out infinite;
+    top: 0;
+    padding: 4px;
+    margin: 2px;
+    color: #C8B6FF;
+    animation: text_713 15s ease both infinite;
+    font-size: .8rem;
+    letter-spacing: 1px;
   }
 
-  .bubble:nth-child(2) {
-    position: relative;
-    zoom: 0.45;
-    left: -10px;
-    top: -100px;
-    animation-delay: -4s;
+  .load {
+    background-color: #9A79FF;
+    border-radius: 50px;
+    display: block;
+    height: 16px;
+    width: 16px;
+    bottom: 0;
+    position: absolute;
+    transform: translateX(64px);
+    animation: loading_713 16s ease both infinite;
   }
 
-  .bubble:nth-child(3) {
-    position: relative;
-    zoom: 0.45;
-    right: -80px;
-    top: -300px;
-    animation-delay: -6s;
+  .load::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #D1C2FF;
+    border-radius: inherit;
+    animation: loading2_713 16s linear both infinite;
   }
 
-  .bubble:nth-child(4) {
-    position: relative;
-    zoom: 0.35;
-    left: -120px;
-    bottom: -200px;
-    animation-delay: -3s;
-  }
-
-  .bubble:nth-child(5) {
-    position: relative;
-    zoom: 0.5;
-    left: 0px;
-    top: 200px;
-    animation-delay: -5s;
-  }
-
-  @keyframes animate_4010 {
-    0%,100% {
-      transform: translateY(-20px);
+  @keyframes text_713 {
+    0% {
+      letter-spacing: 1px;
+      transform: translateX(0px);
     }
 
-    50% {
-      transform: translateY(20px);
+    40% {
+      letter-spacing: 2px;
+      transform: translateX(26px);
+    }
+
+    80% {
+      letter-spacing: 1px;
+      transform: translateX(32px);
+    }
+
+    90% {
+      letter-spacing: 2px;
+      transform: translateX(0px);
+    }
+
+    100% {
+      letter-spacing: 1px;
+      transform: translateX(0px);
     }
   }
 
-  .bubble::before {
-    content: '';
-    position: absolute;
-    top: 50px;
-    left: 45px;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: #fff;
-    z-index: 10;
-    filter: blur(2px);
+  @keyframes loading_713 {
+    0% {
+      width: 16px;
+      transform: translateX(0px);
+    }
+
+    40% {
+      width: 100%;
+      transform: translateX(0px);
+    }
+
+    80% {
+      width: 16px;
+      transform: translateX(64px);
+    }
+
+    90% {
+      width: 100%;
+      transform: translateX(0px);
+    }
+
+    100% {
+      width: 16px;
+      transform: translateX(0px);
+    }
   }
 
-  .bubble::after {
-    content: '';
-    position: absolute;
-    top: 80px;
-    left: 80px;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background: #fff;
-    z-index: 10;
-    filter: blur(2px);
-  }
+  @keyframes loading2_713 {
+    0% {
+      transform: translateX(0px);
+      width: 16px;
+    }
 
-  .bubble span {
-    position: absolute;
-    border-radius: 50%;
-  }
+    40% {
+      transform: translateX(0%);
+      width: 80%;
+    }
 
-  .bubble span:nth-child(1) {
-    inset: 10px;
-    border-left: 15px solid #0fb4ff;
-    filter: blur(8px);
-  }
+    80% {
+      width: 100%;
+      transform: translateX(0px);
+    }
 
-  .bubble span:nth-child(2) {
-    inset: 10px;
-    border-right: 15px solid #ff4484;
-    filter: blur(8px);
-  }
+    90% {
+      width: 80%;
+      transform: translateX(15px);
+    }
 
-  .bubble span:nth-child(3) {
-    inset: 10px;
-    border-top: 15px solid #ffeb3b;
-    filter: blur(8px);
-  }
-
-  .bubble span:nth-child(4) {
-    inset: 30px;
-    border-left: 15px solid #ff4484;
-    filter: blur(12px);
-  }
-
-  .bubble span:nth-child(5) {
-    inset: 10px;
-    border-bottom: 10px solid #fff;
-    filter: blur(8px);
-    transform: rotate(330deg);
+    100% {
+      transform: translateX(0px);
+      width: 16px;
+    }
   }`;
 
 export default BubbleLoader;

@@ -7,7 +7,7 @@ import GlassButton from "../components/external/GlassButton.jsx";
 import { createSignal, Show } from "solid-js";
 import Globe from "../components/external/Globe.jsx";
 import { useNavigate } from "@solidjs/router";
-import Loader from "../components/external/Loader.jsx";
+import BubbleLoader from "../components/external/BubbleLoader.jsx";
 
 const Home = () => {
     const [isLoading, setIsLoading] = createSignal(false);
@@ -17,7 +17,7 @@ const Home = () => {
         setIsLoading(true);
         setTimeout(() => {
             navigate("/dashboard");
-        }, 4000); // 4 sec
+        }, 10000); // 10 sec
     };
 
     return (
@@ -25,7 +25,7 @@ const Home = () => {
             {/* Loader Overlay */}
             <Show when={isLoading()}>
                 <div className="fixed inset-0 bg-black flex justify-center items-center z-50">
-                    <Loader />
+                    <BubbleLoader />
                 </div>
             </Show>
 

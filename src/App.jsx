@@ -73,14 +73,16 @@ const AppContent = (props) => {
 
 export default function App() {
     return (
-        <Router root={AppContent}>
-            <Route path="*" component={Home} />
-            <Route path="/about" component={About} />
-            <Route path="/contact" component={Contact} />
-            <Route path="/privacy" component={Privacy} />
-            <Route path="/terms" component={Terms} />
-            <Route path="/login" component={Login} />
-            <Route path="/dashboard" component={Dashboard} />
+        <Router source={typeof window !== 'undefined' ? window : undefined}>
+            <Route path="/" component={AppContent}>
+                <Route path="/" component={Home} />
+                <Route path="/about" component={About} />
+                <Route path="/contact" component={Contact} />
+                <Route path="/privacy" component={Privacy} />
+                <Route path="/terms" component={Terms} />
+                <Route path="/login" component={Login} />
+                <Route path="/dashboard" component={Dashboard} />
+            </Route>
         </Router>
     );
 }
