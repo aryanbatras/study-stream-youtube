@@ -9,6 +9,18 @@ import Text from "../components/reusable/Text.jsx";
 import CubeBox from "../components/external/CubeBox.jsx";
 import {useThemeStore} from "../stores/themeStore.js";
 import ThemeSwitch from "../components/external/ThemeSwitch.jsx";
+import StudyRoom from "../components/StudyRoom/StudyRoom";
+
+// Load JitsiMeetExternalAPI globally
+if (typeof window !== 'undefined') {
+  window.JitsiMeetExternalAPI = window.JitsiMeetExternalAPI || null;
+  if (!window.JitsiMeetExternalAPI) {
+    const script = document.createElement('script');
+    script.src = 'https://meet.jit.si/external_api.js';
+    script.async = true;
+    document.head.appendChild(script);
+  }
+}
 
 export default function Dashboard() {
 
@@ -27,13 +39,13 @@ const handleVideoLinkSubmit = (videoId) => {
         youtubeUrl: localStorage.getItem('youtubeUrl') || '',
         showInDashboard: localStorage.getItem('showInDashboard') ? localStorage.getItem('showInDashboard') === 'true' : true,
         showTimer: localStorage.getItem('showTimer') ? localStorage.getItem('showTimer') === 'true' : true,
-        showStudyRoom: localStorage.getItem('showStudyRoom') ? localStorage.getItem('showStudyRoom') === 'true' : true,
+        // showStudyRoom: localStorage.getItem('showStudyRoom') ? localStorage.getItem('showStudyRoom') === 'true' : true,
         showTaskManager: localStorage.getItem('showTaskManager') ? localStorage.getItem('showTaskManager') === 'true' : true
     });
     const saveSettings = (key, value) => {
         localStorage.setItem(key, value);
         setSettings(prev => ({ ...prev, [key]: value }));
-        
+
         // Refresh the page if any component visibility setting is changed
         if (['showTimer', 'showStudyRoom', 'showTaskManager'].includes(key)) {
             setTimeout(() => window.location.reload(), 300); // Small delay to allow state to update
@@ -68,14 +80,14 @@ const handleVideoLinkSubmit = (videoId) => {
 
             const text = await response.text();
             console.log('RSS Feed Response:', text); // Debug log
-            
+
             const parser = new DOMParser();
             const xmlDoc = parser.parseFromString(text, "text/xml");
-            
+
             // Debug: Log all entries to see what's in the feed
             const allEntries = Array.from(xmlDoc.getElementsByTagName('entry'));
             console.log('All entries:', allEntries);
-            
+
             const liveEntry = allEntries.find(entry => {
                 const liveBroadcast = entry.getElementsByTagName('yt:liveBroadcastContent')[0];
                 console.log('Entry:', entry);
@@ -83,7 +95,7 @@ const handleVideoLinkSubmit = (videoId) => {
                 console.log('Live broadcast content:', liveBroadcast?.textContent);
                 return liveBroadcast?.textContent === 'live';
             });
-            
+
             console.log('Found live entry:', liveEntry); // Debug log
 
             if (liveEntry) {
@@ -91,7 +103,7 @@ const handleVideoLinkSubmit = (videoId) => {
                 const videoId = liveEntry.getElementsByTagName('yt:videoId')[0]?.textContent;
                 const title = liveEntry.getElementsByTagName('title')[0]?.textContent;
                 const thumbnail = videoId ? `https://img.youtube.com/vi/${videoId}/mqdefault.jpg` : '';
-                
+
                 console.log('Extracted video data:', { videoId, title, thumbnail });
 
                 setLiveVideo({
@@ -304,13 +316,6 @@ const handleVideoLinkSubmit = (videoId) => {
                 )}
             </Section>
 
-            {/*<Section className="flex flex-row justify-around gap-4 mt-8 w-full max-w-4xl mb-8">*/}
-            {/*    <YoutubeButton />*/}
-            {/*</Section>*/}
-
-            {/*<Section className="flex flex-row justify-around gap-4 mt-32 w-full max-w-4xl mb-32">*/}
-            {/*    <CubeBox />*/}
-            {/*</Section>*/}
 
             <Show when={isFocusMode()}>
                 <div class="fixed inset-0 z-50 bg-black flex">
@@ -458,18 +463,18 @@ const handleVideoLinkSubmit = (videoId) => {
                                                 class="toggle toggle-primary"
                                             />
                                         </div>
-                                        <div class="flex items-center justify-between">
-                                            <label for="showStudyRoom" class="text-sm text-gray-300">
-                                                Show Study Room
-                                            </label>
-                                            <input
-                                                id="showStudyRoom"
-                                                type="checkbox"
-                                                checked={settings().showStudyRoom}
-                                                onInput={(e) => saveSettings('showStudyRoom', e.target.checked)}
-                                                class="toggle toggle-primary"
-                                            />
-                                        </div>
+                                        {/*<div class="flex items-center justify-between">*/}
+                                        {/*    <label for="showStudyRoom" class="text-sm text-gray-300">*/}
+                                        {/*        Show Study Room*/}
+                                        {/*    </label>*/}
+                                        {/*    <input*/}
+                                        {/*        id="showStudyRoom"*/}
+                                        {/*        type="checkbox"*/}
+                                        {/*        checked={settings().showStudyRoom}*/}
+                                        {/*        onInput={(e) => saveSettings('showStudyRoom', e.target.checked)}*/}
+                                        {/*        class="toggle toggle-primary"*/}
+                                        {/*    />*/}
+                                        {/*</div>*/}
                                         <div class="flex items-center justify-between">
                                             <label for="showTaskManager" class="text-sm text-gray-300">
                                                 Show Task Manager

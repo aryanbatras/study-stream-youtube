@@ -65,7 +65,7 @@ const AppContent = (props) => {
                 }}>
                 </ErrorBoundary>
                 {JSON.parse(localStorage.getItem('showTimer') || 'true') && <Timer/>}
-                {JSON.parse(localStorage.getItem('showStudyRoom') || 'true') && <StudyRoom />}
+                {/*{JSON.parse(localStorage.getItem('showStudyRoom') || 'true') && <StudyRoom />}*/}
                 {JSON.parse(localStorage.getItem('showTaskManager') || 'true') && <TaskManager />}
                 <Footer />
             </div>
