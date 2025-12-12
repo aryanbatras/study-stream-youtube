@@ -1,4 +1,4 @@
-import{t as s,s as c,i as l,c as e,a as i,m as p,M as o,T as m,A as f,S as h}from"./index-CL2mUa9k.js";import{S as b}from"./ShinyText-Cswvmdei.js";import{B as x}from"./Button-BxirXEsD.js";var y=s("<span class=word>"),u=s("<div class=card><div class=loader><div class=words>");const g=a=>{const d=a.children.split(" ").map((r,n)=>(()=>{var t=y();return c(t,"key",n),l(t,r),t})());return e(w,{get children(){var r=u(),n=r.firstChild,t=n.firstChild;return l(t,d),r}})},w=i("div")`
+import{t as o,s as p,i as s,c as e,a as d,m,b as f,u as b,L as h,S as x,M as l,T as u,d as g}from"./index-kpmvit0S.js";import{S as y}from"./ShinyText-OoQ-h6UQ.js";import{B as w}from"./Button-BKdU9sJL.js";var v=o("<span class=word>"),k=o("<div class=card><div class=loader><div class=words>");const Y=a=>{const i=a.children.split(" ").map((r,n)=>(()=>{var t=v();return p(t,"key",n),s(t,r),t})());return e($,{get children(){var r=k(),n=r.firstChild,t=n.firstChild;return s(t,i),r}})},$=d("div")`
   .card {
     /* color used to softly clip top and bottom of the .words container */
     --bg-color: #111;
@@ -86,7 +86,7 @@ import{t as s,s as c,i as l,c as e,a as i,m as p,M as o,T as m,A as f,S as h}fro
       -webkit-transform: translateY(-400%);
       transform: translateY(-400%);
     }
-  }`,k=a=>e(v,{get children(){return e(x,p({className:"btn",animate:!0},a,{get children(){return a.children}}))}}),v=i.div`
+  }`,_=a=>e(S,{get children(){return e(w,m({className:"btn",animate:!0},a,{get children(){return a.children}}))}}),S=d.div`
   .btn {
     font-size: 1.2rem;
     padding: 1rem 2.5rem;
@@ -112,7 +112,7 @@ import{t as s,s as c,i as l,c as e,a as i,m as p,M as o,T as m,A as f,S as h}fro
     background: white;
     opacity: 0.85;
     color: #5b5eff;
-  }`;var Y=s("<div class=loader-wrapper><span class=loader-letter>C</span><span class=loader-letter>o</span><span class=loader-letter>m</span><span class=loader-letter>p</span><span class=loader-letter>a</span><span class=loader-letter>n</span><span class=loader-letter>i</span><span class=loader-letter>o</span><span class=loader-letter>n</span><div class=loader>");const $=()=>e(S,{get children(){return Y()}}),S=i.div`
+  }`;var z=o("<div class=loader-wrapper><span class=loader-letter>C</span><span class=loader-letter>o</span><span class=loader-letter>m</span><span class=loader-letter>p</span><span class=loader-letter>a</span><span class=loader-letter>n</span><span class=loader-letter>i</span><span class=loader-letter>o</span><span class=loader-letter>n</span><div class=loader>");const C=()=>e(L,{get children(){return z()}}),L=d.div`
   .loader-wrapper {
     position: relative;
     display: flex;
@@ -220,4 +220,4 @@ import{t as s,s as c,i as l,c as e,a as i,m as p,M as o,T as m,A as f,S as h}fro
       opacity: 0.7;
       transform: translateY(0);
     }
-  }`,T=()=>e(h,{className:"h-screen min-w-screen px-2 flex flex-col justify-center items-center",get children(){return[e(o.div,{initial:{opacity:0,y:50},animate:{opacity:1,y:0},transition:{duration:.8,delay:.2},className:"flex flex-col gap-2 min-w-screen h-24 items-center  justify-center mb-25 text-center",get children(){return[e(g,{children:". Welcome Companions Let'sStudy Together"}),e($,{})]}}),e(o.div,{initial:{opacity:0,y:30},animate:{opacity:1,y:0},transition:{duration:.8,delay:.4},class:"mb-8",get children(){return e(m,{animate:!0,className:"px-8 text-sm font-serif italic underline-offset-1 opacity-80 text-center",get children(){return e(b,{children:" Join a community of learners studying together in real-time "})}})}}),e(o.div,{initial:{opacity:0,y:30},animate:{opacity:1,y:0},transition:{duration:.8,delay:.6},class:"mb-8 flex gap-4 mx-auto max-w-2xl",get children(){return e(k,{get children(){return e(f,{href:"/dashboard",children:"See Others Live"})}})}})]}});export{T as default};
+  }`;var N=o('<div class="fixed inset-0 bg-black flex justify-center items-center z-50">'),T=o("<div class=relative>");const G=()=>{const[a,i]=f(!1),r=b(),n=()=>{i(!0),setTimeout(()=>{r("/dashboard")},4e3)};return(()=>{var t=T();return s(t,e(x,{get when(){return a()},get children(){var c=N();return s(c,e(h,{})),c}}),null),s(t,e(g,{className:"h-screen min-w-screen px-2 flex flex-col justify-center items-center",get children(){return[e(l.div,{initial:{opacity:0,y:50},animate:{opacity:1,y:0},transition:{duration:.8,delay:.2},className:"flex flex-col gap-2 min-w-screen h-24 items-center justify-center mb-25 text-center",get children(){return[e(Y,{children:". Welcome Companions Let'sStudy Together"}),e(C,{})]}}),e(l.div,{initial:{opacity:0,y:30},animate:{opacity:1,y:0},transition:{duration:.8,delay:.4},class:"mb-8",get children(){return e(u,{animate:!0,className:"px-8 text-sm font-serif italic underline-offset-1 opacity-80 text-center",get children(){return e(y,{children:"Join a community of learners studying together in real-time"})}})}}),e(l.div,{initial:{opacity:0,y:30},animate:{opacity:1,y:0},transition:{duration:.8,delay:.6},class:"mb-8 flex gap-4 mx-auto max-w-2xl",get children(){return e(_,{onClick:n,children:"See Others Live"})}})]}}),null),t})()};export{G as default};
