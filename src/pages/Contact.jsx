@@ -12,7 +12,10 @@ export default function Contact() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log('Form submitted:', formData());
+        const { name, email, message } = formData();
+        const subject = `Contact Form Submission from ${name}`;
+        const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0A%0D%0A${message}`;
+        window.location.href = `mailto:batraaryan03@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
     };
 
     return (

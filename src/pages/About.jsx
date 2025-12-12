@@ -22,7 +22,7 @@ export default function About() {
                                 Our Story
                             </Text>
                             <Text className="text-lg leading-relaxed" animate={true}>
-                                Founded in 2023, we've been on a journey to revolutionize the way people interact with technology.
+                                Founded in 2025, we've been on a journey to revolutionize the way people interact with technology.
                                 Our mission is to build innovative solutions that make a real difference in people's lives.
                             </Text>
                         </div>
