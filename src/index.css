@@ -17,10 +17,3 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
-html {
-    zoom: 150%;
-    /* or */
-    /* transform: scale(1.5);
-       transform-origin: 0 0; */
-}
