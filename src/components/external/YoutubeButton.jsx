@@ -41,7 +41,7 @@ const YoutubeButton = ({ settings, onSettingsOpen, onVideoLinkSubmit }) => {
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" id="Play" className="icon">
                         <path d="M12 39c-.549 0-1.095-.15-1.578-.447A3.008 3.008 0 0 1 9 36V12c0-1.041.54-2.007 1.422-2.553a3.014 3.014 0 0 1 2.919-.132l24 12a3.003 3.003 0 0 1 0 5.37l-24 12c-.42.21-.885.315-1.341.315z" fill="#ffffff" className="color000000 svgShape" />
                     </svg>
-                    <span className="text">Watch Live</span>
+                    <span className="text">Go Live</span>
                 </button>
             </StyledWrapper>
 
@@ -156,9 +156,9 @@ const StyledWrapper = styled.div`
   }
 
   .button-with-icon .icon {
-    margin-right: 8px;
-    width: 20px;
-    height: 20px;
+    margin-left: 8px;
+    width: 25px;
+    height: 25px;
     transition: all 0.5s ease-in-out;
   }
 

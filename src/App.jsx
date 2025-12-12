@@ -1,5 +1,6 @@
 import {Suspense, lazy, createSignal, Show, onMount} from "solid-js";
 import { Route, Router, useLocation } from "@solidjs/router";
+import { ErrorBoundary } from "solid-js";
 
 import Footer from "./layout/Footer.jsx";
 import Navigation from "./layout/Navigation.jsx";
@@ -13,6 +14,10 @@ const Privacy = lazy(() => import("./pages/Privacy.jsx"));
 const Terms = lazy(() => import("./pages/Terms.jsx"));
 const Login = lazy(() => import("./pages/Login.jsx"));
 const Dashboard = lazy(() => import("./pages/Dashboard.jsx"));
+
+const TaskManager = lazy(() => import("./components/TaskManager/TaskManager"));
+const Timer = lazy(() => import("./components/Timer/Timer"));
+const StudyRoom = lazy(() => import("./components/StudyRoom/StudyRoom"));
 
 const AppContent = (props) => {
     const [hasLoaded, setHasLoaded] = createSignal(false);
@@ -43,6 +48,25 @@ const AppContent = (props) => {
                 <Navigation />
                 {props.children}
                 <ScrollAnimation />
+                {console.log('Rendering TaskManager')}
+                <ErrorBoundary fallback={(err, reset) => {
+                  console.error('Error in TaskManager:', err);
+                  return (
+                    <div class="fixed bottom-4 left-4 z-50 bg-white/95 p-4 rounded-lg shadow-lg">
+                      <div class="text-red-500">Error loading TaskManager</div>
+                      <button 
+                        onClick={reset}
+                        class="mt-2 text-sm bg-gray-100 hover:bg-gray-200 px-2 py-1 rounded"
+                      >
+                        Try Again
+                      </button>
+                    </div>
+                  );
+                }}>
+                </ErrorBoundary>
+                {JSON.parse(localStorage.getItem('showTimer') || 'true') && <Timer/>}
+                {JSON.parse(localStorage.getItem('showStudyRoom') || 'true') && <StudyRoom />}
+                {JSON.parse(localStorage.getItem('showTaskManager') || 'true') && <TaskManager />}
                 <Footer />
             </div>
         </>

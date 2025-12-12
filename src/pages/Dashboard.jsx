@@ -25,11 +25,19 @@ const handleVideoLinkSubmit = (videoId) => {
         theme: localStorage.getItem('theme') || '',
         cardsPerPage: localStorage.getItem('cardsPerPage') || '',
         youtubeUrl: localStorage.getItem('youtubeUrl') || '',
-        showInDashboard: localStorage.getItem('showInDashboard') ? localStorage.getItem('showInDashboard') === 'true' : true
+        showInDashboard: localStorage.getItem('showInDashboard') ? localStorage.getItem('showInDashboard') === 'true' : true,
+        showTimer: localStorage.getItem('showTimer') ? localStorage.getItem('showTimer') === 'true' : true,
+        showStudyRoom: localStorage.getItem('showStudyRoom') ? localStorage.getItem('showStudyRoom') === 'true' : true,
+        showTaskManager: localStorage.getItem('showTaskManager') ? localStorage.getItem('showTaskManager') === 'true' : true
     });
     const saveSettings = (key, value) => {
         localStorage.setItem(key, value);
         setSettings(prev => ({ ...prev, [key]: value }));
+        
+        // Refresh the page if any component visibility setting is changed
+        if (['showTimer', 'showStudyRoom', 'showTaskManager'].includes(key)) {
+            setTimeout(() => window.location.reload(), 300); // Small delay to allow state to update
+        }
     };
 
     const [cardsPerPage, setCardsPerPage] = createSignal(settings().cardsPerPage || 4);
@@ -319,7 +327,6 @@ const handleVideoLinkSubmit = (videoId) => {
                         {/*</button>*/}
                     </div>
                     <div class="w-full h-full">
-                        // In the focus mode section (around line 300-350), update the pinned videos list to include both types:
                         {(() => {
                             const pinnedVideosList = [
                                 // Regular pinned videos
@@ -434,6 +441,47 @@ const handleVideoLinkSubmit = (videoId) => {
                                             placeholder="4"
                                         >
                                         </input>
+                                    </div>
+                                </div>
+
+                                <div class="space-y-8 mt-8">
+                                    <div class="space-y-4">
+                                        <div class="flex items-center justify-between">
+                                            <label for="showTimer" class="text-sm text-gray-300">
+                                                Show Timer
+                                            </label>
+                                            <input
+                                                id="showTimer"
+                                                type="checkbox"
+                                                checked={settings().showTimer}
+                                                onInput={(e) => saveSettings('showTimer', e.target.checked)}
+                                                class="toggle toggle-primary"
+                                            />
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <label for="showStudyRoom" class="text-sm text-gray-300">
+                                                Show Study Room
+                                            </label>
+                                            <input
+                                                id="showStudyRoom"
+                                                type="checkbox"
+                                                checked={settings().showStudyRoom}
+                                                onInput={(e) => saveSettings('showStudyRoom', e.target.checked)}
+                                                class="toggle toggle-primary"
+                                            />
+                                        </div>
+                                        <div class="flex items-center justify-between">
+                                            <label for="showTaskManager" class="text-sm text-gray-300">
+                                                Show Task Manager
+                                            </label>
+                                            <input
+                                                id="showTaskManager"
+                                                type="checkbox"
+                                                checked={settings().showTaskManager}
+                                                onInput={(e) => saveSettings('showTaskManager', e.target.checked)}
+                                                class="toggle toggle-primary"
+                                            />
+                                        </div>
                                     </div>
                                 </div>
 
