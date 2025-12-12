@@ -1,4 +1,4 @@
-import{t as o,s as p,i as s,c as e,a as d,m,b as f,u as b,L as h,S as x,M as l,T as u,d as g}from"./index-kpmvit0S.js";import{S as y}from"./ShinyText-OoQ-h6UQ.js";import{B as w}from"./Button-BKdU9sJL.js";var v=o("<span class=word>"),k=o("<div class=card><div class=loader><div class=words>");const Y=a=>{const i=a.children.split(" ").map((r,n)=>(()=>{var t=v();return p(t,"key",n),s(t,r),t})());return e($,{get children(){var r=k(),n=r.firstChild,t=n.firstChild;return s(t,i),r}})},$=d("div")`
+import{t as o,s as p,i as s,c as e,a as d,m,b as f,u as b,L as h,S as x,M as l,T as u,d as g}from"./index-qIROQWr_.js";import{S as y}from"./ShinyText-YPiRd6Qf.js";import{B as w}from"./Button-9owA1sXS.js";var v=o("<span class=word>"),k=o("<div class=card><div class=loader><div class=words>");const Y=a=>{const i=a.children.split(" ").map((r,n)=>(()=>{var t=v();return p(t,"key",n),s(t,r),t})());return e($,{get children(){var r=k(),n=r.firstChild,t=n.firstChild;return s(t,i),r}})},$=d("div")`
   .card {
     /* color used to softly clip top and bottom of the .words container */
     --bg-color: #111;
