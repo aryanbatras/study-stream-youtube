@@ -1,4 +1,4 @@
-import{t as o,s as p,i as s,c as e,a as d,m,b as f,u as b,L as h,S as x,M as l,T as u,d as g}from"./index-qIROQWr_.js";import{S as y}from"./ShinyText-YPiRd6Qf.js";import{B as w}from"./Button-9owA1sXS.js";var v=o("<span class=word>"),k=o("<div class=card><div class=loader><div class=words>");const Y=a=>{const i=a.children.split(" ").map((r,n)=>(()=>{var t=v();return p(t,"key",n),s(t,r),t})());return e($,{get children(){var r=k(),n=r.firstChild,t=n.firstChild;return s(t,i),r}})},$=d("div")`
+import{t as n,s as c,i as o,c as t,a as i,m,b as f,u as x,S as h,M as d,T as b,d as g}from"./index-B7SA2SNW.js";import{S as u}from"./ShinyText-cquAQr6S.js";import{B as y}from"./Button-aRrsUPsd.js";var w=n("<span class=word>"),v=n("<div class=card><div class=loader><div class=words>");const k=a=>{const l=a.children.split(" ").map((r,s)=>(()=>{var e=w();return c(e,"key",s),o(e,r),e})());return t(_,{get children(){var r=v(),s=r.firstChild,e=s.firstChild;return o(e,l),r}})},_=i("div")`
   .card {
     /* color used to softly clip top and bottom of the .words container */
     --bg-color: #111;
@@ -86,7 +86,7 @@ import{t as o,s as p,i as s,c as e,a as d,m,b as f,u as b,L as h,S as x,M as l,T
       -webkit-transform: translateY(-400%);
       transform: translateY(-400%);
     }
-  }`,_=a=>e(S,{get children(){return e(w,m({className:"btn",animate:!0},a,{get children(){return a.children}}))}}),S=d.div`
+  }`,Y=a=>t($,{get children(){return t(y,m({className:"btn",animate:!0},a,{get children(){return a.children}}))}}),$=i.div`
   .btn {
     font-size: 1.2rem;
     padding: 1rem 2.5rem;
@@ -112,7 +112,7 @@ import{t as o,s as p,i as s,c as e,a as d,m,b as f,u as b,L as h,S as x,M as l,T
     background: white;
     opacity: 0.85;
     color: #5b5eff;
-  }`;var z=o("<div class=loader-wrapper><span class=loader-letter>C</span><span class=loader-letter>o</span><span class=loader-letter>m</span><span class=loader-letter>p</span><span class=loader-letter>a</span><span class=loader-letter>n</span><span class=loader-letter>i</span><span class=loader-letter>o</span><span class=loader-letter>n</span><div class=loader>");const C=()=>e(L,{get children(){return z()}}),L=d.div`
+  }`;var X=n("<div class=loader-wrapper><span class=loader-letter>C</span><span class=loader-letter>o</span><span class=loader-letter>m</span><span class=loader-letter>p</span><span class=loader-letter>a</span><span class=loader-letter>n</span><span class=loader-letter>i</span><span class=loader-letter>o</span><span class=loader-letter>n</span><div class=loader>");const S=()=>t(z,{get children(){return X()}}),z=i.div`
   .loader-wrapper {
     position: relative;
     display: flex;
@@ -220,4 +220,123 @@ import{t as o,s as p,i as s,c as e,a as d,m,b as f,u as b,L as h,S as x,M as l,T
       opacity: 0.7;
       transform: translateY(0);
     }
-  }`;var N=o('<div class="fixed inset-0 bg-black flex justify-center items-center z-50">'),T=o("<div class=relative>");const G=()=>{const[a,i]=f(!1),r=b(),n=()=>{i(!0),setTimeout(()=>{r("/dashboard")},4e3)};return(()=>{var t=T();return s(t,e(x,{get when(){return a()},get children(){var c=N();return s(c,e(h,{})),c}}),null),s(t,e(g,{className:"h-screen min-w-screen px-2 flex flex-col justify-center items-center",get children(){return[e(l.div,{initial:{opacity:0,y:50},animate:{opacity:1,y:0},transition:{duration:.8,delay:.2},className:"flex flex-col gap-2 min-w-screen h-24 items-center justify-center mb-25 text-center",get children(){return[e(Y,{children:". Welcome Companions Let'sStudy Together"}),e(C,{})]}}),e(l.div,{initial:{opacity:0,y:30},animate:{opacity:1,y:0},transition:{duration:.8,delay:.4},class:"mb-8",get children(){return e(u,{animate:!0,className:"px-8 text-sm font-serif italic underline-offset-1 opacity-80 text-center",get children(){return e(y,{children:"Join a community of learners studying together in real-time"})}})}}),e(l.div,{initial:{opacity:0,y:30},animate:{opacity:1,y:0},transition:{duration:.8,delay:.6},class:"mb-8 flex gap-4 mx-auto max-w-2xl",get children(){return e(_,{onClick:n,children:"See Others Live"})}})]}}),null),t})()};export{G as default};
+  }`;var C=n("<div class=loader><span class=loader-text>Loading <br> Companions</span><span class=load>");const F=()=>t(L,{get children(){return C()}}),L=i.div`
+  .loader {
+    width: 160px;
+    height: 100px;
+    position: relative;
+  }
+
+  .loader-text {
+    position: absolute;
+    top: 0;
+    padding: 4px;
+    margin: 2px;
+    color: #C8B6FF;
+    animation: text_713 15s ease both infinite;
+    font-size: .8rem;
+    letter-spacing: 1px;
+  }
+
+  .load {
+    background-color: #9A79FF;
+    border-radius: 50px;
+    display: block;
+    height: 16px;
+    width: 16px;
+    bottom: 0;
+    position: absolute;
+    transform: translateX(64px);
+    animation: loading_713 16s ease both infinite;
+  }
+
+  .load::before {
+    position: absolute;
+    content: "";
+    width: 100%;
+    height: 100%;
+    background-color: #D1C2FF;
+    border-radius: inherit;
+    animation: loading2_713 16s linear both infinite;
+  }
+
+  @keyframes text_713 {
+    0% {
+      letter-spacing: 1px;
+      transform: translateX(0px);
+    }
+
+    40% {
+      letter-spacing: 2px;
+      transform: translateX(26px);
+    }
+
+    80% {
+      letter-spacing: 1px;
+      transform: translateX(32px);
+    }
+
+    90% {
+      letter-spacing: 2px;
+      transform: translateX(0px);
+    }
+
+    100% {
+      letter-spacing: 1px;
+      transform: translateX(0px);
+    }
+  }
+
+  @keyframes loading_713 {
+    0% {
+      width: 16px;
+      transform: translateX(0px);
+    }
+
+    40% {
+      width: 100%;
+      transform: translateX(0px);
+    }
+
+    80% {
+      width: 16px;
+      transform: translateX(64px);
+    }
+
+    90% {
+      width: 100%;
+      transform: translateX(0px);
+    }
+
+    100% {
+      width: 16px;
+      transform: translateX(0px);
+    }
+  }
+
+  @keyframes loading2_713 {
+    0% {
+      transform: translateX(0px);
+      width: 16px;
+    }
+
+    40% {
+      transform: translateX(0%);
+      width: 80%;
+    }
+
+    80% {
+      width: 100%;
+      transform: translateX(0px);
+    }
+
+    90% {
+      width: 80%;
+      transform: translateX(15px);
+    }
+
+    100% {
+      transform: translateX(0px);
+      width: 16px;
+    }
+  }`;var N=n('<div class="fixed inset-0 bg-black flex justify-center items-center z-50">'),T=n("<div class=relative>");const A=()=>{const[a,l]=f(!1),r=x(),s=()=>{l(!0),setTimeout(()=>{r("/dashboard")},1e4)};return(()=>{var e=T();return o(e,t(h,{get when(){return a()},get children(){var p=N();return o(p,t(F,{})),p}}),null),o(e,t(g,{className:"h-screen min-w-screen px-2 flex flex-col justify-center items-center",get children(){return[t(d.div,{initial:{opacity:0,y:50},animate:{opacity:1,y:0},transition:{duration:.8,delay:.2},className:"flex flex-col gap-2 min-w-screen h-24 items-center justify-center mb-25 text-center",get children(){return[t(k,{children:". Welcome Companions Let'sStudy Together"}),t(S,{})]}}),t(d.div,{initial:{opacity:0,y:30},animate:{opacity:1,y:0},transition:{duration:.8,delay:.4},class:"mb-8",get children(){return t(b,{animate:!0,className:"px-8 text-sm font-serif italic underline-offset-1 opacity-80 text-center",get children(){return t(u,{children:"Join a community of learners studying together in real-time"})}})}}),t(d.div,{initial:{opacity:0,y:30},animate:{opacity:1,y:0},transition:{duration:.8,delay:.6},class:"mb-8 flex gap-4 mx-auto max-w-2xl",get children(){return t(Y,{onClick:s,children:"See Others Live"})}})]}}),null),e})()};export{A as default};
